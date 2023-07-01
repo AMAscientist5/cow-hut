@@ -11,6 +11,6 @@ const createUser = (userData: IUser): Promise<IUser | null> => {
   return createdUser
 }
 
-export default {
+export const UserService = {
   createUser,
 }
