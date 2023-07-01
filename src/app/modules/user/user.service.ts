@@ -1,10 +1,16 @@
 import { IUser } from './user.interface'
+import { User } from './user.model'
 
-const createStudent = async (student: IUser): Promise<IUser | null> => {
-  console.log(student)
-  return student
+const createUser = (userData: IUser): Promise<IUser | null> => {
+  const createdUser = User.create(userData)
+
+  if (!createdUser) {
+    throw new Error('failed to create User first')
+  }
+
+  return createdUser
 }
 
-export const UserService = {
-  createStudent,
+export default {
+  createUser,
 }
