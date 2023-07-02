@@ -39,13 +39,13 @@ const updateUser = async (
   id: string,
   payload: Partial<IUser>
 ): Promise<IUser | null> => {
-  const user = await User.findById(id);
-  if (!user) {
+  const result = await User.findOneAndUpdate({ _id: id }, payload, {
+    new: true,
+  });
+  if (!result) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found!');
   }
-  Object.assign(user, payload);
-
-  const result = await user.save();
+  // const result = await user.save();
   return result;
 };
 

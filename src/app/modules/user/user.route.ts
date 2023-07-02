@@ -16,7 +16,7 @@ router.post(
 
 router.patch(
   '/:id',
-  validateRequest(UserValidation.createUserZodSchema),
+  validateRequest(UserValidation.updateUserZodSchema),
   userController.updateUser
 );
 

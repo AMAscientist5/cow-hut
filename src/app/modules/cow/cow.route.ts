@@ -16,7 +16,7 @@ router.post(
 
 router.patch(
   '/:id',
-  validateRequest(CowValidation.createCowZodSchema),
+  validateRequest(CowValidation.updateCowZodSchema),
   cowController.updateCow
 );
 

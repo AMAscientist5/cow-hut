@@ -48,12 +48,11 @@ const getAllCows = catchAsync(async (req: Request, res: Response) => {
 });
 
 const updateCow = catchAsync(async (req: Request, res: Response) => {
-  console.log('test ahmad mus');
   const id = req.params.id;
   const updatedData = req.body;
 
   const result = await CowService.updateCow(id, updatedData);
-
+  console.log(result);
   sendResponse<ICow>(res, {
     success: true,
     statusCode: httpStatus.OK,
