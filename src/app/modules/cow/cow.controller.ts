@@ -6,6 +6,7 @@ import { ICow } from './cow.interface';
 import { CowService } from './cow.service';
 import pick from '../../../shared/pick';
 import { paginationFields } from '../../../constant.ts/pagination';
+import { cowFilterableFields } from './cow.constant';
 
 const createCow = catchAsync(async (req: Request, res: Response) => {
   const cow = req.body;
@@ -38,28 +39,10 @@ const getSingleCow = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-// const getAllCows = catchAsync(async (req: Request, res: Response) => {
-//   //   const filters = pick(req.query, studentFilterableFields);
-//   //   const paginationOptions = pick(req.query, paginationFields);
-
-//   //   const result = await StudentService.getAllStudents(
-//   //     filters,
-//   //     paginationOptions
-//   //   );
-//   const result = await CowService.getAllCows();
-
-//   sendResponse<ICow[]>(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: 'Cows retrieved successfully !',
-//     meta: result.meta,
-//     data: result.data,
-//   });
-// });
-
 const getAllCows = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, cowFilterableFields);
   const paginationOptions = pick(req.query, paginationFields);
-  const result = await CowService.getAllCows(paginationOptions);
+  const result = await CowService.getAllCows(filters, paginationOptions);
 
   sendResponse<ICow[]>(res, {
     statusCode: httpStatus.OK,
@@ -69,17 +52,6 @@ const getAllCows = catchAsync(async (req: Request, res: Response) => {
     data: result.data,
   });
 });
-
-// const getAllCows = catchAsync(async (req: Request, res: Response) => {
-//   const result = await CowService.getAllCows();
-
-//   sendResponse<ICow[]>(res, {
-//     success: true,
-//     statusCode: httpStatus.OK,
-//     message: 'Cows retrieved successfully',
-//     data: result,
-//   });
-// });
 
 const updateCow = catchAsync(async (req: Request, res: Response) => {
   console.log('test ahmad mus');

@@ -24,3 +24,7 @@ export const ICattleBreeds: IBreeds[] = [
 export const ICowLebel = ['for sale', 'sold out'];
 
 export const ICowCategory = ['Dairy', 'Beef', 'Dual Purpose'];
+
+export const cowFilterableFields = ['searchTerm', 'location'];
+
+export const cowSearchableFields = ['location', 'breed', 'category'];

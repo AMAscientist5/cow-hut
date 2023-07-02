@@ -1,11 +1,12 @@
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
-import { ICow } from './cow.interface';
+import { ICow, ICowFilters } from './cow.interface';
 import Cow from './cow.model';
 import { IGenericResponse } from '../../../interface/common';
 import { IPaginationOptions } from '../../../interface/pagination';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { SortOrder } from 'mongoose';
+import { cowSearchableFields } from './cow.constant';
 
 const createCow = (userData: ICow): Promise<ICow | null> => {
   const createdUser = Cow.create(userData);
@@ -20,22 +21,37 @@ const createCow = (userData: ICow): Promise<ICow | null> => {
   return createdUser;
 };
 
-const getSingleCow = async (id: string): Promise<ICow | null> => {
-  const result = await Cow.findOne({ _id: id });
-
-  return result;
-};
-
 const getAllCows = async (
+  filters: ICowFilters,
   paginationOptions: IPaginationOptions
 ): Promise<IGenericResponse<ICow[]>> => {
-  // const result = await Cow.find();
-  // if (!result) {
-  //   throw new ApiError(httpStatus.EXPECTATION_FAILED, 'Failed to get all Cows');
-  // }
+  const { searchTerm, ...filtersData } = filters;
+  console.log(searchTerm);
+  console.log(filtersData);
 
   const { page, limit, skip, sortBy, sortOrder } =
     paginationHelpers.calculatePagination(paginationOptions);
+
+  const andConditions = [];
+
+  if (searchTerm) {
+    andConditions.push({
+      $or: cowSearchableFields.map(field => ({
+        [field]: {
+          $regex: searchTerm,
+          $options: 'i',
+        },
+      })),
+    });
+  }
+
+  if (Object.keys(filtersData).length) {
+    andConditions.push({
+      $and: Object.entries(filtersData).map(([field, value]) => ({
+        [field]: value,
+      })),
+    });
+  }
 
   const sortConditions: { [key: string]: SortOrder } = {};
 
@@ -43,8 +59,13 @@ const getAllCows = async (
     sortConditions[sortBy] = sortOrder;
   }
 
-  const result = await Cow.find().sort(sortConditions).skip(skip).limit(limit);
+  const whereConditions =
+    andConditions.length > 0 ? { $and: andConditions } : {};
 
+  const result = await Cow.find(whereConditions)
+    .sort(sortConditions)
+    .skip(skip)
+    .limit(limit);
   const total = await Cow.countDocuments();
 
   return {
@@ -57,15 +78,11 @@ const getAllCows = async (
   };
 };
 
-// const getAllCows = async (): Promise<ICow[] | null> => {
-//   const allUsers = Cow.find();
+const getSingleCow = async (id: string): Promise<ICow | null> => {
+  const result = await Cow.findOne({ _id: id });
 
-//   if (!allUsers) {
-//     throw new ApiError(httpStatus.EXPECTATION_FAILED, 'failed to get all Cows');
-//   }
-
-//   return allUsers;
-// };
+  return result;
+};
 
 const updateCow = async (
   id: string,
