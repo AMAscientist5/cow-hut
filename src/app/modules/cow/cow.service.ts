@@ -93,8 +93,6 @@ const updateCow = async (
     new: true,
   });
 
-  console.log(result);
-
   return result;
 };
 
