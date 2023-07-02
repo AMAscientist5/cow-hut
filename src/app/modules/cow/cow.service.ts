@@ -16,6 +16,12 @@ const createCow = (userData: ICow): Promise<ICow | null> => {
   return createdUser;
 };
 
+const getSingleCow = async (id: string): Promise<ICow | null> => {
+  const result = await Cow.findOne({ _id: id });
+
+  return result;
+};
 export const CowService = {
   createCow,
+  getSingleCow,
 };
