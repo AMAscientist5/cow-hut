@@ -10,6 +10,10 @@ const moduleRoutes = [
     route: UserRoutes,
   },
   {
+    path: '/users',
+    route: UserRoutes,
+  },
+  {
     path: '/cows',
     route: CowRoutes,
   },

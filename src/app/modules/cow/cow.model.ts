@@ -36,7 +36,7 @@ export const cowSchema: Schema = new Schema<ICow>(
     seller: {
       type: Schema.Types.ObjectId,
       ref: 'seller',
-      // required: true
+      required: true,
     },
   },
   {

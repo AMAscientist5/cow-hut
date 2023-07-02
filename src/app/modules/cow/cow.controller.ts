@@ -11,7 +11,7 @@ const createCow = catchAsync(async (req: Request, res: Response) => {
 
   res.status(200).json({
     success: true,
-    message: 'user created successfully',
+    message: 'Cow created successfully',
     data: result,
   });
 
