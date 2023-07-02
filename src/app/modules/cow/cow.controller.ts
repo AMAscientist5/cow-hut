@@ -12,12 +12,6 @@ const createCow = catchAsync(async (req: Request, res: Response) => {
   const cow = req.body;
   const result = await CowService.createCow(cow);
 
-  res.status(200).json({
-    success: true,
-    message: 'Cow created successfully',
-    data: result,
-  });
-
   sendResponse<ICow>(res, {
     statusCode: httpStatus.OK,
     success: true,
