@@ -19,4 +19,7 @@ router.patch(
   validateRequest(UserValidation.createUserZodSchema),
   userController.updateUser
 );
+
+router.delete('/:id', userController.deleteUser);
+
 export const UserRoutes = router;

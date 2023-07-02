@@ -49,9 +49,42 @@ const updateUser = async (
   return result;
 };
 
+// const deleteUser = async (id: string): Promise<IUser | null> => {
+//   const isExist = await User.findOne({ id });
+
+//   if (!isExist) {
+//     throw new ApiError(httpStatus.NOT_FOUND, 'User not found !');
+//   }
+
+//   const user = await User.findOneAndDelete({ id }); //
+//   if (!user) {
+//     throw new ApiError(404, 'Failed to delete student');
+//   }
+
+//   await User.deleteOne({ id });
+
+//   return user;
+// };
+const deleteUser = async (id: string): Promise<IUser | null> => {
+  const isExist = await User.findOne({ _id: id });
+
+  if (!isExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found!');
+  }
+
+  const user = await User.findOneAndDelete({ _id: id });
+
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Failed to delete user');
+  }
+
+  return user;
+};
+
 export const UserService = {
   createUser,
   getAllUsers,
   getSingleUser,
   updateUser,
+  deleteUser,
 };
