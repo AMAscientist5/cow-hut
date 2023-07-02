@@ -35,8 +35,23 @@ const getSingleUser = async (id: string): Promise<IUser | null> => {
   return result;
 };
 
+const updateUser = async (
+  id: string,
+  payload: Partial<IUser>
+): Promise<IUser | null> => {
+  const user = await User.findById(id);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found!');
+  }
+  Object.assign(user, payload);
+
+  const result = await user.save();
+  return result;
+};
+
 export const UserService = {
   createUser,
   getAllUsers,
   getSingleUser,
+  updateUser,
 };
