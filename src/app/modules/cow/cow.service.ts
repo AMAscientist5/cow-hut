@@ -21,7 +21,22 @@ const getSingleCow = async (id: string): Promise<ICow | null> => {
 
   return result;
 };
+
+const updateCow = async (
+  id: string,
+  payload: Partial<ICow>
+): Promise<ICow | null> => {
+  const cow = await Cow.findById(id);
+  if (!cow) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Cow not found!');
+  }
+  Object.assign(cow, payload);
+
+  const result = await cow.save();
+  return result;
+};
 export const CowService = {
   createCow,
   getSingleCow,
+  updateCow,
 };
