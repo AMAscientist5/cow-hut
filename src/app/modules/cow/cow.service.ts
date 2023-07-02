@@ -35,8 +35,25 @@ const updateCow = async (
   const result = await cow.save();
   return result;
 };
+
+const deleteCow = async (id: string): Promise<ICow | null> => {
+  const isExist = await Cow.findOne({ _id: id });
+
+  if (!isExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Cow not found!');
+  }
+
+  const cow = await Cow.findOneAndDelete({ _id: id });
+
+  if (!cow) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Failed to delete cow');
+  }
+
+  return cow;
+};
 export const CowService = {
   createCow,
   getSingleCow,
   updateCow,
+  deleteCow,
 };

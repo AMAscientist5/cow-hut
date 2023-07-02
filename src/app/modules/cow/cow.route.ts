@@ -19,4 +19,6 @@ router.patch(
   cowController.updateCow
 );
 
+router.delete('/:id', cowController.deleteCow);
+
 export const CowRoutes = router;
