@@ -9,15 +9,9 @@ const createUser = catchAsync(async (req: Request, res: Response) => {
   const user = req.body;
   const result = await UserService.createUser(user);
 
-  res.status(200).json({
-    success: true,
-    message: 'user created successfully',
-    data: result,
-  });
-
   sendResponse<IUser>(res, {
-    statusCode: httpStatus.OK,
     success: true,
+    statusCode: httpStatus.OK,
     message: 'user created successfully!',
     data: result,
   });
@@ -61,18 +55,6 @@ const updateUser = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-// const deleteUser = catchAsync(async (req: Request, res: Response) => {
-//   const id = req.params.id;
-
-//   const result = await UserService.deleteUser(id);
-
-//   sendResponse<IUser>(res, {
-//     success: true,
-//     statusCode: httpStatus.OK,
-//     message: 'User deleted successfully',
-//     data: result,
-//   });
-// });
 const deleteUser = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
 
