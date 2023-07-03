@@ -45,7 +45,6 @@ const updateUser = async (
   if (!result) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found!');
   }
-  // const result = await user.save();
   return result;
 };
 

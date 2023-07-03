@@ -1,6 +1,6 @@
 import { Types } from 'mongoose';
 
-export type ICow = {
+export type IOrder = {
   cow: Types.ObjectId;
   buyer: Types.ObjectId;
 };

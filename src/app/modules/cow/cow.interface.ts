@@ -1,4 +1,5 @@
 import { Types } from 'mongoose';
+import { IUser } from '../user/user.interface';
 
 export type ILocation =
   | 'Dhaka'
@@ -31,7 +32,10 @@ export type ICow = {
   weight: number;
   label: ILebel;
   category: ICategory;
-  seller: Types.ObjectId;
+  seller: Types.ObjectId | IUser;
+  // seller: Schema.Types.ObjectId | IUser;
 };
 
-// export type UserModel = Model<IUser, object>
+export type ICowFilters = {
+  searchTerm?: string;
+};
