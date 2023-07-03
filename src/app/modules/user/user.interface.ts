@@ -1,5 +1,3 @@
-// import { Model } from 'mongoose'
-
 export type UserName = {
   firstName: string;
   lastName: string;
@@ -14,5 +12,3 @@ export type IUser = {
   budget: number;
   income: number;
 };
-
-// export type UserModel = Model<IUser, object>

@@ -33,7 +33,6 @@ export type ICow = {
   label: ILebel;
   category: ICategory;
   seller: Types.ObjectId | IUser;
-  // seller: Schema.Types.ObjectId | IUser;
 };
 
 export type ICowFilters = {

@@ -7,7 +7,6 @@ import { IPaginationOptions } from '../../../interface/pagination';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { SortOrder } from 'mongoose';
 import { cowSearchableFields } from './cow.constant';
-// import { User } from '../user/user.model';
 
 const createCow = (userData: ICow): Promise<ICow | null> => {
   const createdUser = Cow.create(userData);
@@ -67,7 +66,7 @@ const getAllCows = async (
     .sort(sortConditions)
     .skip(skip)
     .limit(limit);
-  const total = await Cow.countDocuments();
+  const total = await Cow.countDocuments(whereConditions);
 
   return {
     meta: {

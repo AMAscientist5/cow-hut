@@ -1,5 +1,4 @@
 import { Schema, model } from 'mongoose';
-// import { IUser, UserModel } from './user.interface';
 import { IUser } from './user.interface';
 
 export const userSchema = new Schema<IUser>(
@@ -15,7 +14,6 @@ export const userSchema = new Schema<IUser>(
     password: {
       type: String,
       required: true,
-      unique: true,
     },
     name: {
       firstName: {
@@ -46,4 +44,3 @@ export const userSchema = new Schema<IUser>(
 );
 
 export const User = model<IUser>('User', userSchema);
-// export const User = model<IUser, UserModel>('User', userSchema)

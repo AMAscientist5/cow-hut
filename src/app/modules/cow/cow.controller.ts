@@ -15,7 +15,7 @@ const createCow = catchAsync(async (req: Request, res: Response) => {
   sendResponse<ICow>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'user created successfully!',
+    message: 'Cow created successfully!',
     data: result,
   });
 });
